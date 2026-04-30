@@ -1,1 +1,1 @@
-# D4rknessHub
+https://pastefy.app/LVZgIGD4/raw
