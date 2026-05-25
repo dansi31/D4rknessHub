@@ -48,6 +48,7 @@ function CreateSong(SongName, MainTab, sfx)
 end
 
 function create(fileUrl)
+    wait()
 	local v1 = string.gsub(fileUrl, 'https://github.com/dansi31/D4rknessHubMusic/raw/refs/heads/main/', '')
 	local sfxType = v1:sub(1, 9)
 	local playedSfx
@@ -85,7 +86,7 @@ function Tiktokver()
 	CreateSong('DJ UNIVXRSEL - drollXD', Section, sfx)
 	local sfx2 = create('https://github.com/dansi31/D4rknessHubMusic/raw/refs/heads/main/Short_Dick_Man__GargØynes_Remix_.mp3')
 	CreateSong('GargØynes Remix - Short Dick Man', Section, sfx2)
-	local sfx3 = create('https://github.com/dansi31/D4rknessHubMusic/raw/refs/heads/main/tenderlybae_-_Zabirajj_vse_chto_khochesh_65684930.mp3')
+    local sfx3 = create('https://github.com/dansi31/D4rknessHubMusic/raw/refs/heads/main/tenderlybae_-_Zabirajj_vse_chto_khochesh_65684930.mp3')
 	CreateSong('tenderlybae - Забирай всё что хочешь', Section, sfx3)
 	local sfx4 = create('https://github.com/dansi31/D4rknessHubMusic/raw/refs/heads/main/xantihoney%20dove.mp3')
 	CreateSong('antihoney - Dove (Slowed)', Section, sfx4)
@@ -126,8 +127,6 @@ function Freestyle()
 	CreateSong('Snow Strippers - Just Your Doll', Section, sfx4)
 	local sfx5 = create('https://github.com/dansi31/D4rknessHubMusic/raw/refs/heads/main/Yeat_-_Mony_so_big_73743397.mp3')
 	CreateSong('Yeat - Monëy so big', Section, sfx5)
-	local sfx6 = create('')
-	CreateSong('Snow Strippers', Section, sfx6)
 end
 
 function MemeSongs()
@@ -156,7 +155,7 @@ end
 
 Rayfield:Notify({
 	Title = "System",
-	Content = "Downloading music... ~ 1 minute left",
+	Content = "Downloading music... ~ 4 minutes left",
 	Image = "arrow-down-to-line",
 	Duration = 5
 })
