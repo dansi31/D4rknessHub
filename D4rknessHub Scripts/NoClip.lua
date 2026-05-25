@@ -1,4 +1,4 @@
---  Created by: 1AN (ydHldYudti)
+--  Created by: 1AN
 
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
@@ -112,4 +112,4 @@ Rayfield:Notify({
     Image = 4483362458,
 })
 
-print("🚀 ADVANCED STRETCH v2.0 (Rayfield) LOADED | Created by ian Emmanuel (ydHldYudti)")
+print("🚀 ADVANCED STRETCH v2.0 (Rayfield) LOADED | Created by ian Emmanuel")
