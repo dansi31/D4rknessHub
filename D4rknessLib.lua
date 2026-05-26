@@ -13,7 +13,7 @@ type params =
 local CanDrag = false
 
 function v:CreateList(params: params, callback)
-	CanDrag = params.Draggable or false
+	if params.Draggable ~= nil then CanDrag = params.Draggable end
 	local ScreenGui = Instance.new("ScreenGui", gethui())
 	local Frame = Instance.new("Frame", ScreenGui)
 	local UICorner = Instance.new("UICorner", Frame)
