@@ -92,6 +92,11 @@ function v:CreateList(params: params, callback)
 			end
 		end)
 	end)
+	return ScreenGui
 end
 
+function v:SetLabel(List, text)
+	List.Frame.TextButton.Text = text
+end
+	
 return v
