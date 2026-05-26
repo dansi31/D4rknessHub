@@ -93,3 +93,5 @@ function v:CreateList(params: params, callback)
 		end)
 	end)
 end
+
+return v
