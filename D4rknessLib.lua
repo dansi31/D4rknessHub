@@ -12,7 +12,7 @@ type params =
 
 local CanDrag = false
 
-function v.CreateList(params: params, callback)
+function v:CreateList(params: params, callback)
 	CanDrag = params.Draggable or false
 	local ScreenGui = Instance.new("ScreenGui", gethui())
 	local Frame = Instance.new("Frame", ScreenGui)
