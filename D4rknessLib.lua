@@ -2,7 +2,7 @@ local v = {}
 
 type params = 
 	{
-		Header:string, 
+		Header: string, 
 		TextFont: Enum.Font, 
 		BackgroundColor:Color3, 
 		ButtonColor: Color3, 
