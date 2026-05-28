@@ -37,3 +37,4 @@ function v:drag(gui)
 		end
 	end)
 end
+return v
