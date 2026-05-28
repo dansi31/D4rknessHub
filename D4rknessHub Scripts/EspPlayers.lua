@@ -1,76 +1,89 @@
-local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+local params = {
+	Header = 'ESP Script by D4rknessHub', 
+	TextFont = nil, 
+	BackgroundColor = nil, 
+	ButtonColor = nil, 
+	ButtonText = 'ESP Enabled: false',
+	Draggable = true
+}
 
-local Window = Rayfield:CreateWindow({
-	Name = "Universal ESP Script 📌",
-	LoadingTitle = "Universal ESP Script (DARKNESS HUB)",
-	LoadingSubtitle = "Loading...",
-	ConfigurationSaving = {
-		Enabled = true,
-		FolderName = "Universal ESP Script",
-		FileName = "ESPConfig"
-	},
-	Discord = "",
-	KeySystem = false
-})
+local ButtonLib = loadstring(game:HttpGet('https://github.com/dansi31/D4rknessHub/raw/refs/heads/main/D4rknessLib.lua'))()
+local List 
 
-local MainTab = Window:CreateTab("🎮 ESP Players", 4483362458)
+local espEnabled = false 
+local esping = false
 
-MainTab:CreateSection("Main Controls")
+local players = game:GetService("Players") 
+local plr = players.LocalPlayer 
 
-MainTab:CreateToggle({
-	Name = "Enable ESP",
-	CurrentValue = getgenv().StretchConfig and getgenv().StretchConfig.Enabled or true,
-	Flag = "StretchToggle",
-	Callback = function(Value)
-		ApplyStretch(Value)
-	end,
-})
+local highlights = {}
 
-function EnableEsp()
-	for _, player in pairs(game.Players:GetPlayers()) do
-		if player ~= game.Players.LocalPlayer then
-			if player.Character then
-				for _, part in pairs(player.Character:GetDescendants()) do
-					if (part:IsA("MeshPart") or part:IsA("BasePart")) and part.Name ~= "HumanoidRootPart" then
-						if not part:FindFirstChild('ESP') then
-							local Highlight = Instance.new("Highlight", part)
-							Highlight.Name = "ESP"
-							Highlight.OutlineTransparency = 1
-						end
-					end
-				end
-			end
+local function updateAllHighlights()
+	for player, highlight in pairs(highlights) do
+		if highlight and highlight.Parent then
+			highlight.OutlineColor = Color3.new(1,0,0)
+			highlight.FillColor = Color3.new(1,0,0)
 		end
 	end
 end
 
-function DisableEsp()
-	for _, player in pairs(game.Players:GetPlayers()) do
-		if player ~= game.Players.LocalPlayer then
-			if player.Character then
-				for _, part in pairs(player.Character:GetDescendants()) do
-					if (part:IsA("MeshPart") or part:IsA("BasePart")) and part.Name ~= "HumanoidRootPart" then
-						if part:FindFirstChild('ESP') then
-							part.ESP:Destroy()
-						end
-					end
-				end
-			end
-		end
+local function createESP(player) 
+	local character = player.Character 
+	if not character then return end 
+
+	if highlights[player] then
+		highlights[player]:Destroy()
 	end
-end
 
+	local highlight = Instance.new("Highlight") 
+	highlight.Parent = character 
+	highlight.Adornee = character 
+	highlight.OutlineColor = Color3.new(1,0,0)
+	highlight.FillColor = Color3.new(1,0,0)
+	highlight.FillTransparency = 0.5
+	highlight.OutlineTransparency = 1
+	highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop 
 
-function ApplyStretch(value)
-	while task.wait() do
-		if value then
-			EnableEsp()
-		else
-			DisableEsp()
+	highlights[player] = highlight
+
+	player.CharacterAdded:Connect(function(newChar) 
+		if highlights[player] then
+			highlights[player]:Destroy()
 		end
+		createESP(player)
+	end) 
+end 
+
+local function removeESP(player) 
+	if highlights[player] then
+		highlights[player]:Destroy()
+		highlights[player] = nil
 	end
-end
+end 
 
+List = ButtonLib:CreateList(params, function()
+	esping = not esping
+	if esping then
+		espEnabled = true 
 
-getgenv().ESPConfig = getgenv().ESPConfig or {Enabled = true}
-ApplyStretch(getgenv().ESPConfig.Enabled)
+		for _, player in ipairs(players:GetPlayers()) do 
+			if player ~= plr then 
+				createESP(player) 
+			end 
+		end 
+
+		players.PlayerAdded:Connect(function(player) 
+			if espEnabled then 
+				createESP(player) 
+			end 
+		end) 
+
+		updateAllHighlights()
+	else
+		espEnabled = false 
+		for player, _ in pairs(highlights) do 
+			removeESP(player) 
+		end 
+	end
+	ButtonLib:SetLabel(List, 'ESP Enabled: ' .. tostring(esping))
+end)
