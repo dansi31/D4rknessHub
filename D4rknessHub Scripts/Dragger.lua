@@ -1,5 +1,5 @@
 local v = {}
-function v:drag(gui)
+function v:drag(gui, CanDrag)
   local UserInputService = game:GetService("UserInputService")
 	local dragging
 	local dragInput
