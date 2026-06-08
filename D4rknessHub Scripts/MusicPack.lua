@@ -1,4 +1,6 @@
 --Open sourcee ^^
+--Fixed "Could not find the file"
+
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local decal
@@ -48,12 +50,12 @@ function CreateSong(SongName, MainTab, sfx)
 end
 
 function create(fileUrl)
-    wait()
+	wait()
 	local v1 = string.gsub(fileUrl, 'https://github.com/dansi31/D4rknessHubMusic/raw/refs/heads/main/', '')
 	local sfxType = v1:sub(1, 9)
 	local playedSfx
 	local v = false
-	if not isfile("Music Pack/".. sfxType) then else
+	if isfile("Music Pack/".. sfxType) then
 		playedSfx = getcustomasset("Music Pack/".. tostring(sfxType))
 		v = true
 	end
@@ -67,13 +69,21 @@ function create(fileUrl)
 		end
 		if not isfile("Music Pack/".. sfxType) then
 			writefile("Music Pack/".. sfxType, response.Body)
-			playedSfx = getcustomasset("Music Pack/"..sfxType)
+			local v1 = string.gsub(sfxType, '%%20', ' ')
+			while wait() do
+				if isfile("Music Pack/".. v1) then
+					playedSfx = "Music Pack/"..v1
+                    break
+				else
+					continue
+				end
+			end
 		end
 	end
 	if playedSfx ~= nil then
 		local sfx = Instance.new("Sound", game.CoreGui)
 		sfx.Name = "Music Asset Sound" .. tostring(Sounds)
-		sfx.SoundId = playedSfx
+		sfx.SoundId = getcustomasset(playedSfx)
 		sfx.Volume = 1.1
 		sfx.Looped = false
 		return sfx
@@ -86,7 +96,7 @@ function Tiktokver()
 	CreateSong('DJ UNIVXRSEL - drollXD', Section, sfx)
 	local sfx2 = create('https://github.com/dansi31/D4rknessHubMusic/raw/refs/heads/main/Short_Dick_Man__GargØynes_Remix_.mp3')
 	CreateSong('GargØynes Remix - Short Dick Man', Section, sfx2)
-    local sfx3 = create('https://github.com/dansi31/D4rknessHubMusic/raw/refs/heads/main/tenderlybae_-_Zabirajj_vse_chto_khochesh_65684930.mp3')
+	local sfx3 = create('https://github.com/dansi31/D4rknessHubMusic/raw/refs/heads/main/tenderlybae_-_Zabirajj_vse_chto_khochesh_65684930.mp3')
 	CreateSong('tenderlybae - Забирай всё что хочешь', Section, sfx3)
 	local sfx4 = create('https://github.com/dansi31/D4rknessHubMusic/raw/refs/heads/main/xantihoney%20dove.mp3')
 	CreateSong('antihoney - Dove (Slowed)', Section, sfx4)
