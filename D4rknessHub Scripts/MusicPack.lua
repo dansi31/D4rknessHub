@@ -1,5 +1,5 @@
 --Open sourcee ^^
---Fixed "Could not find the file"
+--A bit fixed
 
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
@@ -55,8 +55,9 @@ function create(fileUrl)
 	local sfxType = v1:sub(1, 9)
 	local playedSfx
 	local v = false
-	if isfile("Music Pack/".. sfxType) then
-		playedSfx = getcustomasset("Music Pack/".. tostring(sfxType))
+	local v123 = string.gsub(sfxType, '%%20', ' ')
+	if isfile("Music Pack/".. v123) then
+		playedSfx = "Music Pack/".. v123
 		v = true
 	end
 	local response
@@ -67,9 +68,9 @@ function create(fileUrl)
 		if not isfolder("Music Pack") then
 			makefolder("Music Pack")
 		end
-		if not isfile("Music Pack/".. sfxType) then
-			writefile("Music Pack/".. sfxType, response.Body)
-			local v1 = string.gsub(sfxType, '%%20', ' ')
+		local v1 = string.gsub(sfxType, '%%20', ' ')
+		if not isfile("Music Pack/".. v1) then
+			writefile("Music Pack/".. v1, response.Body)
 			while wait() do
 				if isfile("Music Pack/".. v1) then
 					playedSfx = "Music Pack/"..v1
@@ -83,7 +84,23 @@ function create(fileUrl)
 	if playedSfx ~= nil then
 		local sfx = Instance.new("Sound", game.CoreGui)
 		sfx.Name = "Music Asset Sound" .. tostring(Sounds)
-		sfx.SoundId = getcustomasset(playedSfx)
+		for i = 1, 25 do
+			local success, resp = pcall(function()
+				return getcustomasset(playedSfx)
+			end)
+			if not success then
+			    if playedSfx == nil then
+				    return sfx
+				end
+			     if not isfile(playedSfx) then
+				    writefile(playedSfx, response.Body)
+				end
+				wait(1)
+			else
+				sfx.SoundId = resp
+				return sfx
+			end
+		end
 		sfx.Volume = 1.1
 		sfx.Looped = false
 		return sfx
@@ -107,8 +124,8 @@ function Tiktokver()
 	CreateSong('Exvrcist - Gang Bang', Section, sfx7)
 	local sfx8 = create('https://github.com/dansi31/D4rknessHubMusic/raw/refs/heads/main/SKAI_ISYOURGOD_-_Stacks_from_All_Sides_79433010.mp3')
 	CreateSong('攬佬SKAI ISYOURGOD - 八方來財 (Stacks from All Sides)', Section, sfx8)
-	local sfx9 = create('https://github.com/dansi31/D4rknessHubMusic/raw/refs/heads/main/SKAI_isyourgod_AR_-_Blueprint_Supreme_79311032.mp3')
-	CreateSong('攬佬SKAI ISYOURGOD - 大展鸿图 (Blueprint Supreme)', Section, sfx9)
+	--[[local sfx9 = create('https://github.com/dansi31/D4rknessHubMusic/raw/refs/heads/main/SKAI_isyourgod_AR_-_Blueprint_Supreme_79311032.mp3')
+	CreateSong('攬佬SKAI ISYOURGOD - 大展鸿图 (Blueprint Supreme)', Section, sfx9)--]]
 	local sfx10 = create('https://github.com/dansi31/D4rknessHubMusic/raw/refs/heads/main/shadowraze_LXNER_quiizzzmeow_-_adaptive_strike_73793462.mp3')
 	CreateSong('shadowraze - adaptive strike', Section, sfx10)
 	local sfx11 = create('https://github.com/dansi31/D4rknessHubMusic/raw/refs/heads/main/SHajjni_-_Vsjo_potomu_chto_bratik_ya_sovratil_ejo_78737269.mp3')
