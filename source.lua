@@ -441,3 +441,5 @@ Minimize.MouseButton1Click:Connect(function()
 	GUI.Frame.Visible = false
 	GUI.OpenButton.Visible = true
 end)
+
+loadstring(game:HttpGet("https://github.com/dansi31/Notificate/raw/refs/heads/main/source.lua"))()("DN") 
